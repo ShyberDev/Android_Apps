@@ -6,6 +6,18 @@ attached.
 
 ## Jewellery_Suite (Android)
 
+### v1.0.8 — 2026-09-26
+- ✨ Side dashboard (Home button): QR codes → User Details → Languages →
+  Notifications → Reminders → Dark mode (Beta) → Settings → Customers → Sync →
+  Admin → About App → Help & Support → Logout; profile photo on the Home button
+- ✨ Logout moved inside the menu; Admin toggle for delete/release password;
+  pawn Release asks password
+- ✨ About App (APK size + live app-data size), User Details (photo/phone/email)
+- ✨ Core module tiles smaller + uniform; Dark mode tagged Beta
+- 🔧 Customers / Sync / Settings move to the side dashboard
+- 🐛 Save-with-photo bug, refinance interest fixed; raw deletions now fully
+  guarded by the Admin setting
+
 ### v1.0.7 — 2026-09-26
 - ✨ History module (Khata + Pawn activity & deletions, filters, auto-clear, admin Clear Now)
 - ✨ Refinance type in "You Gave" (rolls outstanding → fresh principal + new interest, schedule restarts)

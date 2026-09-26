@@ -20,8 +20,14 @@ phone. Built for one-handed use by a shopkeeper; works with **no network**.
 
 ## ⬇️ Install on your phone
 
-1. Open the **Releases** page: `https://github.com/ShyberDev/Android_Apps/releases`
-2. Pick the latest version and download the `.apk` file under **Assets**.
+> ℹ️ The APK lives on the **primary release repo**
+> [ShyberDev/Jew_Pawn-Lending-Suite](https://github.com/ShyberDev/Jew_Pawn-Lending-Suite)
+> — this mirror repo keeps the source only (small GitHub footprint).
+
+1. Open the Releases page:
+   `https://github.com/ShyberDev/Jew_Pawn-Lending-Suite/releases`
+2. Pick the latest version and download the `jewellery_suite_vX.Y.Z.apk` file
+   under **Assets**.
 3. Open the file on your Android phone; when Android warns about *unknown
    sources*, allow it — this is a normal sideload.
 4. Done. Your data stays on the phone.

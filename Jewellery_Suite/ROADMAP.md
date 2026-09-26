@@ -9,6 +9,11 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
 
 | Version | Feature |
 |---------|---------|
+| 1.0.8 (built) | Drag-to-delete everywhere (khata, members, pawn loans, pawn items, pawn ledger); bin hidden until you drag |
+| 1.0.8 (built) | Home menu (top-left) — Logout, Customers, Settings, QR codes, Dark mode, About/Help/etc → "Coming in a later release" |
+| 1.0.8 (built) | Settings (More → Settings) — Zoom / smart fit (80–150% + auto), Dark mode, QR codes (gallery + swipe), Interest Calculator |
+| 1.0.8 (built) | Pawn New Loan — "+" to add a customer with full ID-proof fields; photo-save bug fixed |
+| 1.0.8 (built) | Customer ID — numeric book sequence (type 5102 → next 5103…; blank continues; editable; IDs reused after delete) |
 | 1.0.7 | History module (Khata + Pawn activity/deletions, filters, auto-clear 1/3/6/12 mo, admin Clear Now) |
 | 1.0.7 | Refinance type in You Gave (rolls outstanding → principal + new interest, schedule restarts, previous weeks kept) |
 | 1.0.7 | Delete customer / khata with admin password (cascades loans + ledger) |
@@ -19,39 +24,36 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
 | 1.0.6 | "Other" type in You Gave (note-only display) |
 | 1.0.5 | Profile header chips + SMS pre-fill, two-column ledger with notes, editable P+I row, schedule sheet, khata village strip + reminder wording, home module investment/outstanding |
 
-## 🔜 Planned — next version (v1.0.8, confirmed scope — awaiting final Go)
+## ✅ v1.0.8 — released (2026-09-26)
 
-- **Drag-to-delete** (instead of tap-to-delete): long-press a tile to lift &
-  highlight it, drag across the screen, drop on a bottom trash bin to delete.
-  The trash icon buttons on customer / khata rows are replaced by this too
-  (admin password still required for customer/khata).
-- **Collection date picker**: set the exact receive date when collecting
-  (past or future — "he paid next week too"), mini-calendar from the tile,
-  drives on-time/late and the payment schedule.
-- **Refinance polish**: stronger highlight (rectangle tile) for the refinance
-  marker; the edit dialog shows the interest box when you edit a refinance row.
-- **Customer ID (khata) — scheme revised (order-wise, not per village)**:
-  IDs are assigned strictly in order: **A-01, A-02, … A-99, then B-01 …
-  Z-99**, then **A-001, A-002, …** once the two-digit space (2,574) is used.
-  The running ID doubles as the count of customer IDs created. When a customer
-  is deleted their ID is released and **reused by the next new customer**
-  before the sequence advances. Shown on the customer profile + khata member
-  card. (Pawn customer ID — to be discussed later.)
-- **Pawn module 🧭 — shipped inside v1.0.8 (revised labels & logic)**:
-  - **Two buttons** instead of one "Principal" dialog:
-    - **Amount Paying** — opens a single **Amount** box (no interest box).
-      Payment first reduces the **interest** portion, then the **principal**
-      (e.g. 10,300 outstanding, pay 4,000 → interest down first, rest to
-      principal).
-    - **Amount Requesting** — opens a single **Amount** box; the amount
-      **adds to the outstanding balance** and increases the pawn investment.
-  - Every action writes a **new ledger row** with a **selectable effective
-    date** (today or exact — partial days), and the ledger records **both
-    dates**: when the change was entered *and* the date the change applies
-    from (calculations restart from the effective date).
-  - Plus: **Interest Paid** button (pay accrued interest), **Release** button
-    (item handed back), and the profile shows every interest-paid / amount /
-    release event like the khata ledger.
+- **Drag-to-delete** everywhere (replaces tap/long-press delete; the trash bin is
+  fully hidden during normal use and appears only while a drag starts). Admin
+  password still required for khata / member / pawn-loan deletes.
+- **Collection date picker**: exact receive date (past or future), drives
+  on-time/late and the payment schedule; same picker on edit.
+- **Refinance polish**: full gold rectangle tile + edit dialog shows Amount and
+  New Interest boxes.
+- **Customer ID — numeric book sequence**: enter a start number (e.g. 5102) and
+  every following customer auto-continues (5103…); blank continues the previous
+  sequence; deleted IDs are reused; IDs are editable. Shown on the profile +
+  khata member card.
+- **Pawn module (revised)**: **Amount Paying** / **Amount Requesting** buttons
+  (interest-first on paying, auto `Released` at ₹0 balance), **Interest Paid**
+  + **Release**; every action writes a ledger row with entered + effective
+  dates; profile shows every event. **Drag-to-delete** on pawn loans, pawn
+  items (loan totals recompute) and ledger entries (effect is undone).
+- **Pawn New Loan "+"** → full customer form (photo, ID proof type/number/
+  front/back) without leaving the pawn screen; photo-save bug fixed.
+- **Home desk simplified**: core modules = logo + name only ("Pawns", not
+  "Active pawns"); KPI strip + tiles sized so big phone fonts don't overflow.
+- **Settings** (More → Settings): **Zoom / smart fit** (slider + preview,
+  works alongside big phone display/font settings without overflow), **Dark
+  mode**, **QR codes** (bank/UPI, swipe between like PhonePe), and the full
+  settings list (unbuilt entries → "Coming in a later release").
+- **Home menu (top-left)**: Logout, Customers, Settings, QR codes, Appearance,
+  About phone, Help & support, Languages, Notifications, Reminders, Theme,
+  Biometric & screen lock, Change password.
+- **More → Interest Calculator** utility.
 
 ## ⏳ Pending — later versions
 
@@ -60,6 +62,9 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
   needs a Google Maps API key.
 - Pawn dashboard tiles (outstanding + active count, Gold/Silver/Mixed, search),
   "Interest Rate X%/Month", released-items list.
+- Jewellery module itself (items entries + their drag-delete).
+- QR-code UPI payment flow (click-to-pay / bank-details auto-fill).
+- Push notifications / reminders engine.
 - Desktop / iOS / Linux / web builds of the suite.
 
 ---

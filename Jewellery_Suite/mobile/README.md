@@ -9,7 +9,7 @@ This is a **native Flutter app**, not a web/PWA wrapper.
 
 ---
 
-## What it does (v1.0.2)
+## What it does (v1.0.8)
 
 | Screen | Purpose |
 |---|---|
