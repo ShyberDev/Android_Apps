@@ -30,25 +30,27 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
   drives on-time/late and the payment schedule.
 - **Refinance polish**: stronger highlight (rectangle tile) for the refinance
   marker; the edit dialog shows the interest box when you edit a refinance row.
-- **Customer ID (khata) — scheme confirmed**: short ID like **A-99** (letter =
-  village A…Z, number 1…99 since villages have ≤ ~100 members). Auto-assign
-  next free number per village. When a village's numbers are all used:
-  **recycle Ids of deleted / absent / inactive customers first**; only if
-  nothing is free, widen to three digits **A-001** and continue the sequence.
-  Show the ID on the customer profile + khata member card. (Pawn customer ID —
-  to be discussed later.)
-- **Pawn module 🧭 — shipped inside v1.0.8 (confirmed)**:
-  - Tap **Principal** → dialog with two options:
-    - **Principal Paying** — borrower pays principal **down** (decreases
-      principal + linked interest)
-    - **Principal Requesting more** — borrower takes **more** money on the
-      item (increases principal)
-  - Dialog has **Amount** (e.g. ₹10,000) **+ Interest** boxes.
-  - **Principal Paying** creates a **new ledger row** for the item with a
-    **selectable date** (today or any exact date — also works if the item was
-    released during partial days, so interest recalculates from that date).
+- **Customer ID (khata) — scheme revised (order-wise, not per village)**:
+  IDs are assigned strictly in order: **A-01, A-02, … A-99, then B-01 …
+  Z-99**, then **A-001, A-002, …** once the two-digit space (2,574) is used.
+  The running ID doubles as the count of customer IDs created. When a customer
+  is deleted their ID is released and **reused by the next new customer**
+  before the sequence advances. Shown on the customer profile + khata member
+  card. (Pawn customer ID — to be discussed later.)
+- **Pawn module 🧭 — shipped inside v1.0.8 (revised labels & logic)**:
+  - **Two buttons** instead of one "Principal" dialog:
+    - **Amount Paying** — opens a single **Amount** box (no interest box).
+      Payment first reduces the **interest** portion, then the **principal**
+      (e.g. 10,300 outstanding, pay 4,000 → interest down first, rest to
+      principal).
+    - **Amount Requesting** — opens a single **Amount** box; the amount
+      **adds to the outstanding balance** and increases the pawn investment.
+  - Every action writes a **new ledger row** with a **selectable effective
+    date** (today or exact — partial days), and the ledger records **both
+    dates**: when the change was entered *and* the date the change applies
+    from (calculations restart from the effective date).
   - Plus: **Interest Paid** button (pay accrued interest), **Release** button
-    (item handed back), and profile shows every interest-paid / principal /
+    (item handed back), and the profile shows every interest-paid / amount /
     release event like the khata ledger.
 
 ## ⏳ Pending — later versions
