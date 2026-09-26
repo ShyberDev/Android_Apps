@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
     return Scaffold(
-      backgroundColor: kBg,
+      backgroundColor: bgOf(context),
       drawer: _buildDrawer(state),
       body: SafeArea(
         child: RefreshIndicator(
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           state.userName.isNotEmpty
                               ? state.userName
-                              : 'Version 1.0.8 • user details',
+                              : 'Version 1.0.9 • user details',
                           style: TextStyle(
                               fontSize: 11,
                               color: Theme.of(context)
@@ -197,58 +197,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const Divider(),
-            // Payments first — QR codes (PhonePe-style), then the user's own
-            // details, then the ordered system list, and logout at the bottom.
+            // v1.0.9 order requested by the shop: Payments → General (User
+            // details, Customers) → System → Logout. Languages, Notifications,
+            // Reminders and Dark mode live in Settings only (no duplicates).
             sec('Payments'),
             tile(Icons.qr_code_2, 'QR codes',
                 () => go(const QrCodesScreen()),
                 subtitle: 'Bank / UPI QR codes'),
-            sec('User Details'),
+            sec('General'),
             tile(Icons.person_outline, 'User Details',
                 () => go(const UserDetailsScreen()),
                 subtitle: 'Photo, phone, email'),
-            sec('Preferences'),
-            tile(Icons.language, 'Languages', _drawerComingSoon),
-            tile(Icons.notifications_outlined, 'Notifications',
-                _drawerComingSoon),
-            tile(Icons.alarm, 'Reminders', _drawerComingSoon),
-            SwitchListTile(
-              secondary: const Icon(Icons.brightness_6_outlined,
-                  color: kGoldDark),
-              title: const Text('Dark mode (Beta)',
-                  style: TextStyle(fontSize: 14)),
-              subtitle: const Text('Beta — not applied everywhere yet'),
-              value: state.darkMode,
-              onChanged: (v) => state.setDarkMode(v),
-            ),
-            tile(Icons.settings_outlined, 'Settings',
-                () => go(const SettingsScreen()),
-                subtitle: 'Zoom, appearance & more'),
-            sec('General'),
             tile(Icons.people_outline, 'Customers',
                 () => go(const CustomersScreen()),
                 subtitle: '${_stats['customers'] ?? 0} saved'),
-            tile(Icons.sync, 'Sync', () => go(const SyncScreen()),
-                subtitle: state.pending > 0
-                    ? '${state.pending} change(s) waiting'
-                    : 'All changes synced'),
-            sec('Admin'),
-            SwitchListTile(
-              secondary:
-                  const Icon(Icons.admin_panel_settings_outlined, color: kGoldDark),
-              title: const Text('Ask password for delete / release',
-                  style: TextStyle(fontSize: 14)),
-              subtitle: const Text('Stop accidental deletes (admin)'),
-              value: state.adminConfirm,
-              onChanged: (v) => state.setAdminConfirm(v),
-            ),
             sec('System'),
             tile(Icons.fingerprint, 'Biometric & screen lock',
                 _drawerComingSoon),
             tile(Icons.lock_outline, 'Change password', _drawerComingSoon),
+            tile(Icons.settings_outlined, 'Settings',
+                () => go(const SettingsScreen()),
+                subtitle: 'Zoom, dark mode, languages & more'),
             tile(Icons.info_outline, 'About App',
                 () => go(const AboutAppScreen()),
-                subtitle: 'Version 1.0.8, size & data'),
+                subtitle: 'Version 1.0.9, size & data'),
             tile(Icons.support_agent, 'Help & Support', _drawerComingSoon),
             const Divider(),
             ListTile(
@@ -269,20 +241,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _header(AppState state) {
     // Home button: the user's profile photo if one was uploaded, else the
-    // home icon. It opens the side dashboard.
+    // home icon. It opens the side dashboard. NOTE: the Builder is required —
+    // this State's own context sits ABOVE the Scaffold, so Scaffold.of() on it
+    // throws and the drawer would never open.
     return Row(
       children: [
-        GestureDetector(
-          onTap: () => Scaffold.of(context).openDrawer(),
-          child: CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.white,
-            backgroundImage: state.userPhoto.isNotEmpty
-                ? photoProvider(state.userPhoto)
-                : null,
-            child: state.userPhoto.isEmpty
-                ? const Icon(Icons.home, color: kInk, size: 22)
-                : null,
+        Builder(
+          builder: (inner) => GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Scaffold.of(inner).openDrawer(),
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.white,
+                backgroundImage: state.userPhoto.isNotEmpty
+                    ? photoProvider(state.userPhoto)
+                    : null,
+                child: state.userPhoto.isEmpty
+                    ? Icon(Icons.home, color: inkOf(context), size: 22)
+                    : null,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -291,14 +271,14 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(_greeting,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
-                      color: kInk)),
+                      color: inkOf(context))),
               const SizedBox(height: 2),
               Text(_dateLine,
                   style: TextStyle(
-                      fontSize: 13, color: kInk.withValues(alpha: .55))),
+                      fontSize: 13, color: mutedOf(context))),
             ],
           ),
         ),
@@ -317,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? const SizedBox(
                   width: 20, height: 20,
                   child: CircularProgressIndicator(strokeWidth: 2, color: kGold))
-              : const Icon(Icons.sync, color: kInk),
+              : Icon(Icons.sync, color: inkOf(context)),
           onTap: state.syncing
               ? null
               : () async {
@@ -361,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: surfaceOf(context),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Row(
@@ -374,13 +354,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(value,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
-                              color: kInk)),
+                              color: inkOf(context))),
                       Text(label,
                           style: TextStyle(
-                              fontSize: 10.5, color: kInk.withValues(alpha: .55))),
+                              fontSize: 10.5, color: mutedOf(context))),
                     ],
                   ),
                 ),
@@ -414,7 +394,7 @@ class _HomeScreenState extends State<HomeScreen> {
       crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 1.45,
+      childAspectRatio: 1.6,
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
       children: [
@@ -426,34 +406,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _moduleCard(IconData icon, String title, VoidCallback onTap) {
     return Material(
-      color: Colors.white,
+      color: surfaceOf(context),
       borderRadius: BorderRadius.circular(16),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(4),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 32,
-                height: 32,
+                width: 28,
+                height: 28,
                 decoration: BoxDecoration(
                   color: kGold.withValues(alpha: .14),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, size: 17, color: const Color(0xFF9A7B10)),
+                child: Icon(icon, size: 15, color: const Color(0xFF9A7B10)),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 3),
               Text(title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 12.5,
+                  style: TextStyle(
+                      fontSize: 12,
                       fontWeight: FontWeight.w700,
-                      color: kInk)),
+                      color: inkOf(context))),
             ],
           ),
         ),
@@ -468,11 +448,13 @@ class _HomeScreenState extends State<HomeScreen> {
       (Icons.history, 'History',
           'Recent activity & deletions', () => _open(const HistoryScreen())),
       (Icons.calculate_outlined, 'Interest Calculator',
-          'Quick interest & total estimate',
+          'Normal & compound interest, date range',
           () => _open(const InterestCalculatorScreen())),
-      (Icons.settings_outlined, 'Settings',
-          'Zoom, appearance, QR codes & more',
-          () => _open(const SettingsScreen())),
+      (Icons.sync, 'Sync',
+          state.pending > 0
+              ? '${state.pending} change(s) waiting'
+              : 'All changes synced',
+          () => _open(const SyncScreen())),
     ];
     return Column(
       children: [
@@ -480,21 +462,21 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Material(
-              color: Colors.white,
+              color: surfaceOf(context),
               borderRadius: BorderRadius.circular(14),
               clipBehavior: Clip.antiAlias,
               child: ListTile(
                 dense: true,
                 leading: Icon(icon, color: kGold),
                 title: Text(title,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 13.5,
                         fontWeight: FontWeight.w600,
-                        color: kInk)),
+                        color: inkOf(context))),
                 subtitle: Text(subtitle,
                     style: TextStyle(
-                        fontSize: 11, color: kInk.withValues(alpha: .55))),
-                trailing: const Icon(Icons.chevron_right, color: kInk),
+                        fontSize: 11, color: mutedOf(context))),
+                trailing: Icon(Icons.chevron_right, color: inkOf(context)),
                 onTap: onTap,
               ),
             ),
@@ -505,7 +487,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _roundIcon(Widget child, {VoidCallback? onTap}) {
     return Material(
-      color: Colors.white,
+      color: surfaceOf(context),
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
       child: InkWell(

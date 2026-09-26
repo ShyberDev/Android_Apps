@@ -10,7 +10,9 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
 | Version | Feature |
 |---------|---------|
 | 1.0.8 (built) | Drag-to-delete everywhere (khata, members, pawn loans, pawn items, pawn ledger); bin hidden until you drag |
-| 1.0.8 (built) | Home menu (top-left) — Logout, Customers, Settings, QR codes, Dark mode, About/Help/etc → "Coming in a later release" |
+| 1.0.9 (built) | Pawn slip scan (on-device OCR) + Google document scanner capture; book-style customer IDs (A-01 … Z-99 → A-001 …) |
+| 1.0.9 (built) | Pawn Loans: Investment / Interest due / Outstanding, All·Active·Released, Gold / Silver / Mixed; ID proof on the loan |
+| 1.0.9 (built) | Interest Calculator: Normal + Compound, real-calendar From→To, monthly/annual rate |
 | 1.0.8 (built) | Settings (More → Settings) — Zoom / smart fit (80–150% + auto), Dark mode, QR codes (gallery + swipe), Interest Calculator |
 | 1.0.8 (built) | Pawn New Loan — "+" to add a customer with full ID-proof fields; photo-save bug fixed |
 | 1.0.8 (built) | Customer ID — numeric book sequence (type 5102 → next 5103…; blank continues; editable; IDs reused after delete) |

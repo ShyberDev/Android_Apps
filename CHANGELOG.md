@@ -6,6 +6,20 @@ attached.
 
 ## Jewellery_Suite (Android)
 
+### v1.0.9 — 2026-09-26
+- ✨ Pawn slip scanning (on-device OCR) + Google document-scanner capture with
+  camera/gallery fallback
+- ✨ Book-style customer IDs (A-01 … Z-99 → A-001 …), shown on khata card,
+  customer list, pawn loan card and search
+- ✨ Pawn Loans: Investment / Interest due / Outstanding + All·Active·Released +
+  Gold / Silver / Mixed; ID proof captured on the loan
+- ✨ Interest Calculator: Normal & Compound, real-calendar date range, monthly
+  or annual rate
+- 🔧 Pawn form: customer name, address, mobile no, customer ID; icon-only photo
+  buttons; dashboard simplified with no duplicate menu items
+- 🐛 Dashboard/drawer open, pawn release, outstanding mismatch, village-tag
+  layout and 12.1-months bugs fixed
+
 ### v1.0.8 — 2026-09-26
 - ✨ Side dashboard (Home button): QR codes → User Details → Languages →
   Notifications → Reminders → Dark mode (Beta) → Settings → Customers → Sync →
