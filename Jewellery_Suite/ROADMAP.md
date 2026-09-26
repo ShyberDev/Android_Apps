@@ -30,11 +30,27 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
   drives on-time/late and the payment schedule.
 - **Refinance polish**: stronger highlight (rectangle tile) for the refinance
   marker; the edit dialog shows the interest box when you edit a refinance row.
-- **Customer ID**: every customer gets an ID shown on the profile.
-- **Pawn module 🧭 — *pending your decision* (one module at a time?)**:
-  - Profile tile shows paid interest / principal changes like the ledger
-  - Three buttons + Release: **Interest Paid**, **Principal** (paying off the
-    item vs increasing its payment), **Release**
+- **Customer ID (khata) — scheme confirmed**: short ID like **A-99** (letter =
+  village A…Z, number 1…99 since villages have ≤ ~100 members). Auto-assign
+  next free number per village. When a village's numbers are all used:
+  **recycle Ids of deleted / absent / inactive customers first**; only if
+  nothing is free, widen to three digits **A-001** and continue the sequence.
+  Show the ID on the customer profile + khata member card. (Pawn customer ID —
+  to be discussed later.)
+- **Pawn module 🧭 — Principal button semantics confirmed (build order still a
+  question)**:
+  - Tap **Principal** → dialog with two options:
+    - **Principal Paying** — borrower pays principal **down** (decreases
+      principal + linked interest)
+    - **Principal Requesting more** — borrower takes **more** money on the
+      item (increases principal)
+  - Dialog has **Amount** (e.g. ₹10,000) **+ Interest** boxes.
+  - **Principal Paying** creates a **new ledger row** for the item with a
+    **selectable date** (today or any exact date — also works if the item was
+    released during partial days, so interest recalculates from that date).
+  - Plus: **Interest Paid** button (pay accrued interest), **Release** button
+    (item handed back), and profile shows every interest-paid / principal /
+    release event like the khata ledger.
 
 ## ⏳ Pending — later versions
 
