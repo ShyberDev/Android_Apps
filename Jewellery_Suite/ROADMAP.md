@@ -19,7 +19,7 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
 | 1.0.6 | "Other" type in You Gave (note-only display) |
 | 1.0.5 | Profile header chips + SMS pre-fill, two-column ledger with notes, editable P+I row, schedule sheet, khata village strip + reminder wording, home module investment/outstanding |
 
-## 🔜 Planned — next version (v1.0.8, awaiting your confirmation)
+## 🔜 Planned — next version (v1.0.8, confirmed scope — awaiting final Go)
 
 - **Drag-to-delete** (instead of tap-to-delete): long-press a tile to lift &
   highlight it, drag across the screen, drop on a bottom trash bin to delete.
@@ -37,8 +37,7 @@ Legend: ✅ done — 🔜 planned for next version — ⏳ not started
   nothing is free, widen to three digits **A-001** and continue the sequence.
   Show the ID on the customer profile + khata member card. (Pawn customer ID —
   to be discussed later.)
-- **Pawn module 🧭 — Principal button semantics confirmed (build order still a
-  question)**:
+- **Pawn module 🧭 — shipped inside v1.0.8 (confirmed)**:
   - Tap **Principal** → dialog with two options:
     - **Principal Paying** — borrower pays principal **down** (decreases
       principal + linked interest)
